@@ -16,5 +16,4 @@ fs.readdirSync(__dirname)
     let newapi = new api(config);
     apis[newapi._name] = newapi
   });
-
 module.exports = apis;

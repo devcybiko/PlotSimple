@@ -1,5 +1,4 @@
 const mysql = require("mysql2");
-
 /*
     constructor...
     api(inputObj, context, callback)
@@ -9,7 +8,6 @@ const mysql = require("mysql2");
 // connect(connection, context, callback) => callback(err, connection, context)
 // query({query:string}, context, callback) => callback(err, rowset, context)
 let MySQLConstructor = function (config) {
-    console.log(config);
     this._name = "mysql";
     this.connection = mysql.createConnection(config.mysqlConfig);
     this.connect = (connection, context, callback) => {
