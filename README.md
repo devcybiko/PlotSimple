@@ -9,6 +9,7 @@ The current MVP supports mutli-Line and Bar charts.
 Four basic plots are delivered as a demonstration using baseball data. The data can be found in the `static/data` folder.
 
 See the `index.html` and `static/js/app.js` code for an example of how to use PlotSimple. The files are organized as follows:
+
 - app.js - the main program
 - attendanceCharts.js - two charts, one barchart and one linechart (with smooth linefill)
 - salaryCharts.js - one line chart (with two traces) and one barchart
@@ -25,6 +26,7 @@ The files `static/js/plotsimple.js` and `static/css/plotsimple.css` are also nee
 PlotSimple provides two functions (with more planned) that will plot x/y data with additional options to style the chart.
 
 ### lineChart(divName, dataArray, options)
+
 - `divname` is the name of the div to render the chart in (sans #)
 - `dataArray` is an array of objects in the following format:
   - [{x: [x0, x1, x2...]}, y:[y0, y1, y2...]}...]
@@ -33,6 +35,7 @@ PlotSimple provides two functions (with more planned) that will plot x/y data wi
     - NOTE This allows for multiple line charts ({x: [0], y:[10, 20]})
 - `options` - this is an object for specifying the size and color of the lineChart
 - defaults:
+
 ```
     options = {
         svgWidth: 960,
@@ -61,6 +64,7 @@ PlotSimple provides two functions (with more planned) that will plot x/y data wi
     - NOTE This allows for multiple line charts ({x: [0], y:[10, 20]})
 - `options` - this is an object for specifying the size and color of the lineChart
 - defaults:
+
 ```
         options = {
             svgWidth: 960,
@@ -115,3 +119,4 @@ The delivered api is a `MySQL` plugin that is accessible at `POST:http://localos
 
 The SELECT statement must be fully formed, no variable substitution is performed.
 
+The `apis/config.json` file holds the values for database and other configuration items.
