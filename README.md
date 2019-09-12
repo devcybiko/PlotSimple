@@ -105,7 +105,7 @@ The PlotSimple Server is instantiated with the following command:
 
 `node server`
 
-Be sure to execute a `npm init` first.
+Be sure to execute a `npm install` first.
 
 The PlotSimple server delivers HTML files in the root folder and any static files under the `static` folder. It also reads the `apis` folder for plugins that support any api functionality you may want to add. See the `apis/apiTemplate.js` for more details.
 
