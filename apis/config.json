@@ -6,6 +6,10 @@
       "user": "root",
       "password": "hokxan9Mysql",
       "database": "testdb"
+    },
+    "mongodbConfig": {
+      "url": "mongodb://localhost:27017/testdb",
+      "collections": ["salarys", "teams"]
     }
   },
   "test": {

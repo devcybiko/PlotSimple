@@ -23,13 +23,13 @@ const PlotSimple = {
             let xArray = [];
             let yArray = [];
             let row = data[i];
-            for(let j=0; j<xKeys.length; j++) {
+            for (let j = 0; j < xKeys.length; j++) {
                 xArray.push(row[xKeys[j]]);
             }
-            for(let j=0; j<yKeys.length; j++) {
+            for (let j = 0; j < yKeys.length; j++) {
                 yArray.push(row[yKeys[j]]);
             }
-            result.push({x: xArray, y: yArray});
+            result.push({ x: xArray, y: yArray });
         }
         return result;
     },
@@ -134,7 +134,7 @@ const PlotSimple = {
             .domain(dataArray.map((d, i) => d.x[0]))
             .range(dataArray.map((d, i) => (width / dataArray.length) * i + xWidth));
         var yLinearScale = d3.scaleLinear()
-            .domain([0, d3.max(dataArray, d => d.y[0])])
+            .domain([0, d3.max(dataArray, d => +d.y[0])])
             .range([height, 0]);
         var bottomAxis = d3.axisBottom(xBandScale);
         var leftAxis = d3.axisLeft(yLinearScale).ticks(options.yticks || 10);
@@ -259,10 +259,7 @@ const PlotSimple = {
             xScale = d3.scaleLinear().range([0, width]);
             xScale.domain(d3.extent(dataArray, function (d) { return d.x[0]; }));
         }
-
-
         var yScale = [];
-
         // define the line
         var valueline = [];
         for (var i = 0; i < dataArray[0].y.length; i++) {
@@ -346,6 +343,52 @@ const PlotSimple = {
             .attr("class", "axisText")
             .text(xLabel);
 
+    },
+    tableChart: function (divName, dataArray, options) {
+        let header = dataArray[0];
+        let tableHTML = `<table class="display" id="${divName}-table"><thead><tr>`;
+        let columnDefs = {};
+        if (options && options.check) {
+            tableHTML += `<th></th>`;
+            columnDefs = {
+                columnDefs: [{
+                    orderable: false,
+                    className: 'select-checkbox',
+                    targets: 0
+                }],
+                select: {
+                    //style: 'os',
+                    style: options.check, // multi or os
+                    selector: 'td:first-child',
+                }
+            }
+        }
+        for (key of Object.keys(header)) {
+            tableHTML += `<th>${key}</th>`
+        }
+        tableHTML += `</tr></thead></table>`;
+        console.log(tableHTML)
+        document.getElementById(divName).innerHTML = tableHTML;
+        let t = $(`#${divName}-table`).DataTable(columnDefs);
+        for (let i = 0; i < dataArray.length; i++) {
+            let row = dataArray[i];
+            row[0] = '';
+            const rowArray = Object.keys(row).map(j => row[j])
+            let trow = t.row.add(rowArray).draw(true);
+        }
+        if (options && options.click) {
+            t.on('click', 'tr', function () {
+                var data = t.row(this)[0];
+                options.click(data);
+            });
+        }
+        if (options && options.select) {
+            t.on('select', function () {
+                var data = t.rows(".selected")[0];
+                options.select(data);
+            });
+        }
+        return t;
     }
 }
 PlotSimple.toolTipDiv = d3
